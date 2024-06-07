@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Shadow layer -->
+    <item android:top="2dp" android:right="2dp">
+        <shape>
+            <solid android:color="#B0BEC5" /> <!-- Light gray shadow color -->
+            <corners android:radius="12dp" />
+        </shape>
+    </item>
+
+    <!-- Background layer -->
+    <item>
+        <shape>
+            <gradient
+                android:angle="45"
+                android:startColor="@color/SpotifyGreen"
+            android:endColor="#8FDAC6" /> <!-- Lighter orange color -->
+            <corners android:radius="12dp" />
+        </shape>
+    </item>
+</layer-list>
