@@ -7,11 +7,13 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
-
 
         <include
             android:id="@+id/nav_bar_include"
@@ -21,43 +23,12 @@
             android:layout_alignParentTop="true" />
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_chat"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <FrameLayout
             android:layout_below="@id/nav_bar_include"
-            android:layout_above="@id/layout_input"
-            android:fitsSystemWindows="true" />
-
-        <!-- Input message layout -->
-        <LinearLayout
-            android:id="@+id/layout_input"
+            android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:orientation="horizontal"
-            android:padding="8dp">
+            android:layout_height="match_parent" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_text_message"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Type a message..."
-                android:inputType="textMultiLine"
-                android:maxLines="5"
-                android:scrollbars="vertical" />
-
-            <ImageButton
-                android:id="@+id/button_send"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:background="@drawable/button_background_selector"
-                android:padding="12dp"
-                android:src="@drawable/baseline_arrow_forward_24"
-                android:textStyle="bold" />
-        </LinearLayout>
     </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView

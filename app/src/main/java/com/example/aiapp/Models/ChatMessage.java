@@ -1,6 +1,29 @@
 package com.example.aiapp.Models;
 
-public class ChatMessage {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+public class ChatMessage implements Parcelable {
+
+    protected ChatMessage(Parcel in) {
+        text_message = in.readString();
+        text_timestamp = in.readString();
+        isSentByUser = in.readByte() != 0;
+    }
+
+    public static final Creator<ChatMessage> CREATOR = new Creator<ChatMessage>() {
+        @Override
+        public ChatMessage createFromParcel(Parcel in) {
+            return new ChatMessage(in);
+        }
+
+        @Override
+        public ChatMessage[] newArray(int size) {
+            return new ChatMessage[size];
+        }
+    };
 
     public String getText_message() {
         return text_message;
@@ -35,4 +58,15 @@ public class ChatMessage {
     private String text_message, text_timestamp;
     private boolean isSentByUser;
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(text_message);
+        dest.writeString(text_timestamp);
+        dest.writeByte((byte) (isSentByUser ? 1 : 0));
+    }
 }
