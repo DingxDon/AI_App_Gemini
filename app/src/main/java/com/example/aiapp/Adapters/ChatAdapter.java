@@ -18,6 +18,9 @@ import com.example.aiapp.R;
 
 import java.util.List;
 
+import io.noties.markwon.Markwon;
+import io.noties.markwon.ext.tables.TablePlugin;
+
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder> {
 
     public ChatAdapter(List<ChatMessage> chatMessages) {
@@ -49,6 +52,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
     public class ChatViewHolder extends RecyclerView.ViewHolder{
 
         private TextView messageTextView, timeStampTextView, textFromWho;
+        private Markwon markwon;
         ImageButton copyButton;
         public ChatViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -58,14 +62,21 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
             copyButton = itemView.findViewById(R.id.copy_button);
             textFromWho = itemView.findViewById(R.id.text_chat_from_who);
 
+            //Markdown Markwon
+            //markwon = Markwon.create(itemView.getContext());
+
+            markwon = Markwon.builder(itemView.getContext())
+                    .usePlugin(TablePlugin.create(itemView.getContext())).build();
+
         }
 
         public void bind(ChatMessage chatMessage){
-            messageTextView.setText(chatMessage.getText_message());
+            markwon.setMarkdown(messageTextView, chatMessage.getText_message());
+            //messageTextView.setText(chatMessage.getText_message());
             timeStampTextView.setText(chatMessage.getText_timestamp());
 
             if(chatMessage.isSentByUser()) {
-                textFromWho.setText("User");
+                textFromWho.setText("You");
                 //textFromWho.setTextColor(itemView.getContext().getResources().getColor(R.color.SpotifyGreen));
             } else {
                 textFromWho.setText("AI");
