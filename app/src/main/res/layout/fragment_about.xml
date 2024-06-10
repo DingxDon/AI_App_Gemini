@@ -1,0 +1,101 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="Fragments.AboutFragment">
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:padding="32dp"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/App_Icon"
+                android:layout_width="100sp"
+                android:layout_height="100sp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/chatbot"
+                android:paddingBottom="5sp"
+                />
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/app_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="GemBot"
+                android:textSize="26sp"
+                android:layout_gravity="center_horizontal"
+                android:textStyle="bold"
+                android:textColor="@color/SpotifyGreen"
+                android:paddingBottom="32dp"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/About_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="About App"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@color/SpotifyGreen"
+                android:paddingBottom="16dp"/>
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/app_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="AI App is a cutting-edge application developed to bring the power of artificial intelligence to your fingertips. With a focus on simplicity and functionality, it offers a wide range of features designed to enhance your daily tasks and streamline your workflow."
+                android:textSize="18sp"
+                android:textColor="@color/text_color"
+                android:paddingBottom="32dp"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/app_features_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Features"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@color/SpotifyGreen"
+                android:paddingBottom="16dp"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/app_features"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="• Sign-in with Google\n• Gemini AI for advanced AI capabilities\n• Text-to-text processing, including code and tables\n• Link summarization"
+                android:textSize="18sp"
+                android:textColor="@color/text_color"
+                android:paddingBottom="32dp"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/github_link"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="GitHub Repository"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/SpotifyGreen"
+                android:paddingVertical="16dp"
+                android:layout_marginBottom="16dp"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/youtube_link"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Watch Demo on YouTube"
+                android:textSize="18sp"
+                android:textColor="@color/SpotifyGreen"
+                android:backgroundTint="@color/white"
+                android:paddingVertical="16dp"
+
+                android:layout_marginBottom="32dp"/>
+        </LinearLayout>
+
+
+
+</ScrollView>

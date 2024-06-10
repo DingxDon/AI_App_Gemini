@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- preferences_layout.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ListPreference
+        android:id="@+id/theme_preference"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:defaultValue="system"
+        android:entries="@array/theme_options"
+        android:entryValues="@array/theme_values"
+        android:icon="@drawable/brush_icon"
+        android:summary="Choose your preferred theme"
+        android:title="Theme" />
+
+    <EditText
+        android:id="@+id/api_key_preference"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your API key"
+        android:inputType="text"
+        android:drawableLeft="@drawable/baseline_key_24"
+        android:drawablePadding="8dp"/>
+
+    <Switch
+        android:id="@+id/sync_preference"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sync" />
+
+    <Switch
+        android:id="@+id/attachment_preference"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Attachment"
+        android:layout_marginStart="16dp"/>
+
+</LinearLayout>

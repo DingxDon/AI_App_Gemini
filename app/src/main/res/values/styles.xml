@@ -1,0 +1,22 @@
+<resources>
+
+    <style name="AppTheme.Light" parent="Theme.MaterialComponents.Light">
+        <!-- Customize your theme here -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/windowBackgroundLight</item>
+        <!-- Add more customizations as needed -->
+    </style>
+
+    <!-- Dark Theme -->
+    <style name="AppTheme.Dark" parent="Theme.MaterialComponents.DayNight">
+        <!-- Customize your theme here -->
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/windowBackgroundDark</item>
+        <!-- Add more customizations as needed -->
+    </style>
+
+</resources>

@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.aiapp.APIs.AIManager;
 import com.example.aiapp.APIs.ApiKeyManager;
 import com.example.aiapp.Adapters.ChatAdapter;
+import com.example.aiapp.MainActivity;
 import com.example.aiapp.Models.ChatMessage;
 import com.example.aiapp.R;
 import com.google.ai.client.generativeai.type.Content;
@@ -47,28 +48,19 @@ public class ChatFragment extends Fragment implements AIManager.AIResponseListen
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
 
-
         recyclerView = view.findViewById(R.id.recycler_view_chat);
         editText = view.findViewById(R.id.edit_text_message);
         sendChatToAIBtn = view.findViewById(R.id.button_send);
 
         if (savedInstanceState != null) {
             chatMessages = savedInstanceState.getParcelableArrayList(KEY_CHAT_MESSAGES);
-            if (chatMessages != null) {
-                chatAdapter.notifyDataSetChanged();
-            }
+        } else {
+            chatMessages = new ArrayList<>();
         }
 
-        if (chatMessages == null) {
-            chatMessages = new ArrayList<>(); // Initialize with an empty list if null
-        }
-
-        chatMessages = new ArrayList<>();
         chatAdapter = new ChatAdapter(chatMessages);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(chatAdapter);
-
-
 
         // Initialize AIManager and history
         String apiKey = ApiKeyManager.getApiKey(requireContext());
@@ -84,7 +76,6 @@ public class ChatFragment extends Fragment implements AIManager.AIResponseListen
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putParcelableArrayList(KEY_CHAT_MESSAGES, new ArrayList<>(chatMessages));
-
         super.onSaveInstanceState(outState);
     }
 
@@ -118,6 +109,8 @@ public class ChatFragment extends Fragment implements AIManager.AIResponseListen
 
     @Override
     public void onAIResponse(String response) {
+        if (getActivity() == null) return;
+
         getActivity().runOnUiThread(() -> {
             chatMessages.add(new ChatMessage(response, getCurrentTimestamp(), false));
             chatAdapter.notifyItemInserted(chatMessages.size() - 1);
@@ -131,5 +124,11 @@ public class ChatFragment extends Fragment implements AIManager.AIResponseListen
     @Override
     public void onError(Throwable throwable) {
         Log.e(TAG, "Error Getting AI response", throwable);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity) requireActivity()).updateNavBarVisibility(true); // For ChatFragment
     }
 }

@@ -5,7 +5,9 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".MainActivity">
+
 
 
 
@@ -14,6 +16,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
+
+        <FrameLayout
+            android:id="@+id/full_screen_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+             />
 
         <include
             android:id="@+id/nav_bar_include"
@@ -29,6 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
+
     </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView
@@ -39,7 +48,5 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/side_nav_drawer"
         app:menu="@menu/drawer_menu" />
-
-
 
 </androidx.drawerlayout.widget.DrawerLayout>

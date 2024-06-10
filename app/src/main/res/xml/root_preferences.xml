@@ -6,6 +6,7 @@
         android:entries="@array/theme_options"
         android:entryValues="@array/theme_values"
         android:key="theme_preference"
+        android:icon="@drawable/brush_icon"
         android:summary="Choose your preferred theme"
         android:title="Theme" />
 
@@ -16,11 +17,13 @@
         app:dialogTitle="Enter API Key"
         app:dialogMessage="Please enter your API key"
         app:defaultValue=""
-
+        android:icon="@drawable/baseline_key_24"
        />
 
 
-    <PreferenceCategory app:title="@string/sync_header">
+
+    <PreferenceCategory app:title="@string/sync_header"
+        android:icon="@drawable/baseline_cloud_sync_24">
 
         <SwitchPreferenceCompat
             app:key="sync"

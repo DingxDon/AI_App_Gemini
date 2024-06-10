@@ -19,6 +19,11 @@
                     android:id="@+id/menu_about"
                     android:title="@string/about"
                     android:icon="@drawable/baseline_info_outline_24"/>
+
+                <item
+                    android:id="@+id/menu_logout"
+                    android:title="@string/logout"
+                    android:icon="@drawable/baseline_logout_24"/>
             </group>
         </menu>
     </item>

@@ -5,4 +5,39 @@
     <color name="SpotifyGreen">#74AA9C</color>
     <color name="SpotifyLightGreen">#B2CCC5</color>
     <color name="LightSkyBlue">#BBDEFB</color>
+
+    <!-- Primary colors -->
+    <color name="primary_color">#6200EE</color>
+    <color name="primary_light_color">#BB86FC</color>
+    <color name="primary_dark_color">#3700B3</color>
+    <color name="primary_text_color">#FFFFFF</color>
+
+    <!-- Secondary colors -->
+    <color name="secondary_color">#03DAC5</color>
+    <color name="secondary_light_color">#66FFF8</color>
+    <color name="secondary_dark_color">#00A896</color>
+    <color name="secondary_text_color">#000000</color>
+
+    <!-- Background colors -->
+    <color name="background_color">#F5F5F5</color>
+    <color name="surface_color">#FFFFFF</color>
+
+    <!-- Text colors -->
+    <color name="text_color">#212121</color>
+    <color name="text_secondary_color">#757575</color>
+
+    <!-- Error colors -->
+    <color name="error_color">#B00020</color>
+    <color name="error_light_color">#EF5350</color>
+    <color name="error_dark_color">#C62828</color>
+    <color name="error_text_color">#FFFFFF</color>
+
+    <!-- Additional colors -->
+    <item name="colorPrimary" type="color">@color/primary_color</item>
+    <item name="colorPrimaryDark" type="color">@color/primary_dark_color</item>
+    <color name="colorAccent">@color/SpotifyGreen</color>
+    <color name="grey">#9E9E9E</color>
+    <color name="windowBackgroundLight">#FFFFFF</color> <!-- Light background color -->
+    <color name="windowBackgroundDark">#000000</color> <!-- Dark background color -->
+
 </resources>

@@ -1,0 +1,25 @@
+<!-- res/drawable/wave_background.xml -->
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Gradient for the wave effect -->
+    <gradient
+        android:startColor="#81D4FA"
+    android:centerColor="#42A5F5"
+    android:endColor="#1976D2"
+    android:type="linear"
+    android:angle="90" />
+
+    <!-- This path defines the wave -->
+    <path
+        android:pathData="M0,100
+                          C50,120 100,80 150,100
+                          C200,120 250,80 300,100
+                          C350,120 400,80 450,100
+                          C500,120 550,80 600,100
+                          V200
+                          H0
+                          V100"
+        android:fillColor="@android:color/transparent" />
+</shape>
