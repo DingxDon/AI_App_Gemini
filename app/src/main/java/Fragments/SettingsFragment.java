@@ -7,6 +7,7 @@ import androidx.preference.EditTextPreference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 
+import com.example.aiapp.MainActivity;
 import com.example.aiapp.R;
 
 import java.util.Objects;
@@ -43,6 +44,8 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     @Override
     public void onResume() {
         super.onResume();
+        ((MainActivity) requireActivity()).updateNavBarVisibility(false); // For ChatFragment
+
         Objects.requireNonNull(getPreferenceManager().getSharedPreferences()).registerOnSharedPreferenceChangeListener(this);
     }
 

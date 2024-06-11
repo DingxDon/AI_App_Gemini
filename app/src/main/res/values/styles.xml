@@ -1,22 +1,24 @@
 <resources>
 
+    <!-- Light Theme -->
     <style name="AppTheme.Light" parent="Theme.MaterialComponents.Light">
         <!-- Customize your theme here -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowBackground">@color/windowBackgroundLight</item>
+        <item name="colorPrimary">@color/SpotifyGreen</item>
+        <item name="colorPrimaryDark">@color/SpotifyDarkGreen</item>
+        <item name="colorAccent">@color/SpotifyLightGreen</item>
+        <item name="android:windowBackground">@color/SpotifyLightBackground</item>
         <!-- Add more customizations as needed -->
     </style>
 
     <!-- Dark Theme -->
     <style name="AppTheme.Dark" parent="Theme.MaterialComponents.DayNight">
         <!-- Customize your theme here -->
-        <item name="colorPrimary">@color/colorPrimaryDark</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowBackground">@color/windowBackgroundDark</item>
+        <item name="colorPrimary">@color/SpotifyDarkGreen</item>
+        <item name="colorPrimaryDark">@color/SpotifyDarkGreen</item>
+        <item name="colorAccent">@color/SpotifyGreen</item>
+        <item name="android:windowBackground">@color/SpotifyDarkBackground</item>
         <!-- Add more customizations as needed -->
     </style>
+
 
 </resources>

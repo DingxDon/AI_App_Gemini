@@ -3,7 +3,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="SpotifyGreen">#74AA9C</color>
+    <color name="SpotifyDarkGreen">#4D8071</color>
     <color name="SpotifyLightGreen">#B2CCC5</color>
+    <color name="SpotifyLightBackground">#F2FAF9</color>
+    <color name="SpotifyDarkBackground">#1D2421</color>
     <color name="LightSkyBlue">#BBDEFB</color>
 
     <!-- Primary colors -->
@@ -39,5 +42,16 @@
     <color name="grey">#9E9E9E</color>
     <color name="windowBackgroundLight">#FFFFFF</color> <!-- Light background color -->
     <color name="windowBackgroundDark">#000000</color> <!-- Dark background color -->
+
+
+    <!-- Greens -->
+    <color name="greenPrimary">#4CAF50</color>
+    <color name="darkGreenPrimary">#388E3C</color>
+    <color name="lightGreenAccent">#C8E6C9</color>
+    <color name="lightGreenBackground">#E8F5E9</color>
+
+    <color name="darkGreenAccent">#8BC34A</color>
+    <color name="darkGreenBackground">#689F38</color>
+
 
 </resources>
