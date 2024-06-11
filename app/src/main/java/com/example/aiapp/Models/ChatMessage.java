@@ -5,11 +5,36 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import com.google.firebase.firestore.PropertyName;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class ChatMessage implements Parcelable {
+    @PropertyName("text_message")
+    private String textMessage;
+
+    @PropertyName("text_timestamp")
+    private String textTimestamp;
+
+    @PropertyName("is_sent_by_user")
+    private boolean isSentByUser;
+
+    private String documentId; // Add document ID field
+
+    // Default constructor required for Firestore
+    public ChatMessage() {
+    }
+
+    public ChatMessage(String textMessage, String textTimestamp, boolean isSentByUser) {
+        this.textMessage = textMessage;
+        this.textTimestamp = textTimestamp;
+        this.isSentByUser = isSentByUser;
+    }
 
     protected ChatMessage(Parcel in) {
-        text_message = in.readString();
-        text_timestamp = in.readString();
+        textMessage = in.readString();
+        textTimestamp = in.readString();
         isSentByUser = in.readByte() != 0;
     }
 
@@ -25,38 +50,61 @@ public class ChatMessage implements Parcelable {
         }
     };
 
-    public String getText_message() {
-        return text_message;
+    @PropertyName("text_message")
+    public String getTextMessage() {
+        return textMessage;
     }
 
-    public void setText_message(String text_message) {
-        this.text_message = text_message;
+    @PropertyName("text_message")
+    public void setTextMessage(String textMessage) {
+        this.textMessage = textMessage;
     }
 
-    public String getText_timestamp() {
-        return text_timestamp;
+    @PropertyName("text_timestamp")
+    public String getTextTimestamp() {
+        return textTimestamp;
     }
 
-    public void setText_timestamp(String text_timestamp) {
-        this.text_timestamp = text_timestamp;
+    @PropertyName("text_timestamp")
+    public void setTextTimestamp(String textTimestamp) {
+        this.textTimestamp = textTimestamp;
     }
 
+    @PropertyName("is_sent_by_user")
     public boolean isSentByUser() {
         return isSentByUser;
     }
 
+    @PropertyName("is_sent_by_user")
     public void setSentByUser(boolean sentByUser) {
         isSentByUser = sentByUser;
     }
 
-    public ChatMessage(String text_message, String text_timestamp, boolean isSentByUser) {
-        this.text_message = text_message;
-        this.text_timestamp = text_timestamp;
-        this.isSentByUser = isSentByUser;
+    public String getDocumentId() {
+        return documentId;
     }
 
-    private String text_message, text_timestamp;
-    private boolean isSentByUser;
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
+    }
+
+    // Convert ChatMessage object to a Map
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("text_message", textMessage);
+        map.put("text_timestamp", textTimestamp);
+        map.put("is_sent_by_user", isSentByUser);
+        return map;
+    }
+
+    // Convert Map to ChatMessage object
+    public static ChatMessage fromMap(Map<String, Object> map) {
+        ChatMessage chatMessage = new ChatMessage();
+        chatMessage.setTextMessage((String) map.get("text_message"));
+        chatMessage.setTextTimestamp((String) map.get("text_timestamp"));
+        chatMessage.setSentByUser((boolean) map.get("is_sent_by_user"));
+        return chatMessage;
+    }
 
     @Override
     public int describeContents() {
@@ -65,8 +113,8 @@ public class ChatMessage implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
-        dest.writeString(text_message);
-        dest.writeString(text_timestamp);
+        dest.writeString(textMessage);
+        dest.writeString(textTimestamp);
         dest.writeByte((byte) (isSentByUser ? 1 : 0));
     }
 }

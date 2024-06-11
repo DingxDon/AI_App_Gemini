@@ -1,12 +1,11 @@
 package com.example.aiapp;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -32,6 +31,10 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.WriteBatch;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
@@ -43,7 +46,7 @@ import Fragments.ChatFragment;
 import Fragments.SettingsFragment;
 
 public class MainActivity extends AppCompatActivity {
-
+    private static final String TAG = "MainActivity";
     private RecyclerView recyclerView;
     private ChatAdapter chatAdapter;
     private List<ChatMessage> chatMessages;
@@ -54,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private FirebaseAuth mAuth;
 
-    private Button testFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             } else if (id == R.id.menu_logout) {
                 logout();
+                replaceFragment(new LoginFragment(), true);
                 return true;
             }
             return false;
@@ -116,6 +120,8 @@ public class MainActivity extends AppCompatActivity {
         HamburgerSideBtn = findViewById(R.id.side_menu_ib);
         chatMessages = new ArrayList<>();
         chatAdapter = new ChatAdapter(chatMessages);
+        //recyclerView.setAdapter(chatAdapter);
+
 
 
         // Starts a new Chat
@@ -185,11 +191,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void recreateActivity() {
-        Intent intent = getIntent();
-        finish();
-        startActivity(intent);
-    }
 
 
     // Updates the visibility of the NavBar
@@ -242,13 +243,45 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
 
-
-    // Deletes the current chat
     private void deleteCurrentChat() {
-        chatMessages.clear();
-        chatAdapter.notifyDataSetChanged();
+        // Delete chat messages from Firestore
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference chatMessagesRef = db.collection("chatMessages"); // Replace "chatMessages" with your Firestore collection name
 
+        // Use a batch operation to delete multiple documents
+        WriteBatch batch = db.batch();
+        chatMessagesRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    batch.delete(document.getReference());
+                }
+                // Commit the batch operation
+                batch.commit().addOnCompleteListener(deleteTask -> {
+                    if (deleteTask.isSuccessful()) {
+                        Log.d(TAG, "Chat messages deleted successfully from Firestore.");
+                        // Start a new chat (replace this with your logic to start a new chat)
+                        startNewChat();
+                    } else {
+                        Log.w(TAG, "Error deleting chat messages from Firestore.", deleteTask.getException());
+                    }
+                });
+            } else {
+                Log.w(TAG, "Error getting chat messages for deletion from Firestore.", task.getException());
+            }
+        });
     }
+
+    private void startNewChat() {
+        ChatFragment newChatFragment = new ChatFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container, newChatFragment);
+        transaction.commit();
+    }
+
+
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -274,6 +307,7 @@ public class MainActivity extends AppCompatActivity {
         popupMenu.setOnMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.delete_btn) {
                 deleteCurrentChat();
+
                 Toast.makeText(MainActivity.this, "Deleted The Current Chat", Toast.LENGTH_SHORT).show();
                 return true;
             }
@@ -286,4 +320,6 @@ public class MainActivity extends AppCompatActivity {
         FirebaseAuth.getInstance().signOut();
         replaceFragment(new LoginFragment(), true);
     }
+
+
 }

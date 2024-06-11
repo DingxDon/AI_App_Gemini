@@ -71,9 +71,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         }
 
         public void bind(ChatMessage chatMessage){
-            markwon.setMarkdown(messageTextView, chatMessage.getText_message());
+            markwon.setMarkdown(messageTextView, chatMessage.getTextMessage());
             //messageTextView.setText(chatMessage.getText_message());
-            timeStampTextView.setText(chatMessage.getText_timestamp());
+            timeStampTextView.setText(chatMessage.getTextTimestamp());
 
             if(chatMessage.isSentByUser()) {
                 textFromWho.setText("You");
@@ -88,7 +88,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
             {
                 Context context = itemView.getContext();
                 ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clipData = ClipData.newPlainText("Copied Text", chatMessage.getText_message());
+                ClipData clipData = ClipData.newPlainText("Copied Text", chatMessage.getTextMessage());
                 clipboardManager.setPrimaryClip(clipData);
 
                 Toast.makeText(context, "Message copied to clipboard", Toast.LENGTH_SHORT).show();

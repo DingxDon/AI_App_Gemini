@@ -36,8 +36,8 @@
     <color name="error_text_color">#FFFFFF</color>
 
     <!-- Additional colors -->
-    <item name="colorPrimary" type="color">@color/primary_color</item>
-    <item name="colorPrimaryDark" type="color">@color/primary_dark_color</item>
+    <item name="colorPrimary" type="color">#FFFFFF</item>
+    <item name="colorPrimaryDark" type="color">@color/black</item>
     <color name="colorAccent">@color/SpotifyGreen</color>
     <color name="grey">#9E9E9E</color>
     <color name="windowBackgroundLight">#FFFFFF</color> <!-- Light background color -->

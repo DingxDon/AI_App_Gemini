@@ -35,6 +35,7 @@ public class ChatFragment extends Fragment implements AIManager.AIResponseListen
 
     private static final String TAG = "ChatFragment";
     private static final String KEY_CHAT_MESSAGES = "chat_messages";
+
     private RecyclerView recyclerView;
     private ChatAdapter chatAdapter;
     private List<ChatMessage> chatMessages;
@@ -42,6 +43,7 @@ public class ChatFragment extends Fragment implements AIManager.AIResponseListen
     private ImageButton sendChatToAIBtn;
     private AIManager aiManager;
     private List<Content> history;
+
 
     @Nullable
     @Override
@@ -51,6 +53,7 @@ public class ChatFragment extends Fragment implements AIManager.AIResponseListen
         recyclerView = view.findViewById(R.id.recycler_view_chat);
         editText = view.findViewById(R.id.edit_text_message);
         sendChatToAIBtn = view.findViewById(R.id.button_send);
+
 
         if (savedInstanceState != null) {
             chatMessages = savedInstanceState.getParcelableArrayList(KEY_CHAT_MESSAGES);
@@ -66,6 +69,27 @@ public class ChatFragment extends Fragment implements AIManager.AIResponseListen
         String apiKey = ApiKeyManager.getApiKey(requireContext());
         history = new ArrayList<>();
         aiManager = new AIManager(apiKey, history, this);
+
+        // load chat history from firestore
+        // Load chat history from Firestore
+        aiManager.loadChatHistory(new AIManager.ChatHistoryLoadListener() {
+            @Override
+            public void onChatHistoryLoaded(List<ChatMessage> loadedChatMessages) {
+                chatMessages.clear();
+                chatMessages.addAll(loadedChatMessages);
+                chatAdapter.notifyDataSetChanged();
+                for (ChatMessage chatMessage : chatMessages) {
+                    history.add(new Content.Builder().addText(chatMessage.getTextMessage()).build());
+                }
+            }
+
+            @Override
+            public void onError(Exception e) {
+                Log.e(TAG, "Error loading chat history", e);
+                Toast.makeText(getActivity(), "Error loading chat history", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         // Set click listener for send button
         sendChatToAIBtn.setOnClickListener(v -> sendMessage());
@@ -87,7 +111,8 @@ public class ChatFragment extends Fragment implements AIManager.AIResponseListen
         }
         editText.setText("");
 
-        chatMessages.add(new ChatMessage(message, getCurrentTimestamp(), true));
+        ChatMessage userMessage = new ChatMessage(message, getCurrentTimestamp(), true);
+        chatMessages.add(userMessage);
         chatAdapter.notifyItemInserted(chatMessages.size() - 1);
         recyclerView.scrollToPosition(chatMessages.size() - 1);
 
@@ -95,6 +120,7 @@ public class ChatFragment extends Fragment implements AIManager.AIResponseListen
         history.add(userContent);
 
         aiManager.sendMessageToAI(userContent);
+        aiManager.saveMessageToFirestore(userMessage);
 
         // Hide keyboard after sending the message
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(getContext().INPUT_METHOD_SERVICE);
@@ -112,12 +138,14 @@ public class ChatFragment extends Fragment implements AIManager.AIResponseListen
         if (getActivity() == null) return;
 
         getActivity().runOnUiThread(() -> {
-            chatMessages.add(new ChatMessage(response, getCurrentTimestamp(), false));
+            ChatMessage aiMessage = new ChatMessage(response, getCurrentTimestamp(), false);
+            chatMessages.add(aiMessage);
             chatAdapter.notifyItemInserted(chatMessages.size() - 1);
             recyclerView.scrollToPosition(chatMessages.size() - 1);
 
             Content aiContent = new Content.Builder().addText(response).build();
             history.add(aiContent);
+            aiManager.saveMessageToFirestore(aiMessage);
         });
     }
 

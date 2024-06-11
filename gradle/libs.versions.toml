@@ -4,6 +4,7 @@ core = "4.6.2"
 extTables = "4.6.2"
 firebaseAuthVersion = "22.0.0"
 firebaseBom = "33.1.0"
+firebaseFirestore = "24.4.0"
 generativeai = "0.7.0"
 googleApiClient = "1.32.1"
 googleApiServicesDrive = "v3-rev20210330-1.31.5"
@@ -29,12 +30,14 @@ firebaseAuth = "23.0.0"
 annotation = "1.8.0"
 lifecycleLivedataKtx = "2.8.0"
 lifecycleViewmodelKtx = "2.8.0"
+firebaseDatabase = "21.0.0"
 
 [libraries]
 core = { module = "io.noties.markwon:core", version.ref = "core" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-auth-v2200 = { module = "com.google.firebase:firebase-auth", version.ref = "firebaseAuthVersion" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-firestore = { module = "com.google.firebase:firebase-firestore", version.ref = "firebaseFirestore" }
 generativeai = { module = "com.google.ai.client.generativeai:generativeai", version.ref = "generativeai" }
 google-api-client = { module = "com.google.api-client:google-api-client", version.ref = "googleApiClient" }
 google-api-services-drive = { module = "com.google.apis:google-api-services-drive", version.ref = "googleApiServicesDrive" }
@@ -60,6 +63,7 @@ firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version
 annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
 lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
 lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
+firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
