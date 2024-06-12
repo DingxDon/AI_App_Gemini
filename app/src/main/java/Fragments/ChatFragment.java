@@ -35,6 +35,7 @@ public class ChatFragment extends Fragment implements AIManager.AIResponseListen
 
     private static final String TAG = "ChatFragment";
     private static final String KEY_CHAT_MESSAGES = "chat_messages";
+    private static final String ARG_CHAT_NAME = "chat_name";
 
     private RecyclerView recyclerView;
     private ChatAdapter chatAdapter;
@@ -44,6 +45,13 @@ public class ChatFragment extends Fragment implements AIManager.AIResponseListen
     private AIManager aiManager;
     private List<Content> history;
 
+    public static ChatFragment newInstance(String chatName) {
+        ChatFragment fragment = new ChatFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_CHAT_NAME, chatName);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Nullable
     @Override

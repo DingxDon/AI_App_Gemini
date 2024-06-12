@@ -87,28 +87,30 @@ public class MainActivity extends AppCompatActivity {
             replaceFragment(new ChatFragment(), false);
         }
 
-        // Set up the navigation drawer and its functionality
         navigationView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.menu_home) {
                 replaceFragment(new ChatFragment(), false);
-                drawerLayout.closeDrawers();
                 return true;
             } else if (id == R.id.menu_settings) {
+                // Handle opening the settings fragment
                 replaceFragment(new SettingsFragment(), false);
-                drawerLayout.closeDrawers();
                 return true;
             } else if (id == R.id.menu_about) {
+                // Handle opening the about fragment
                 replaceFragment(new AboutFragment(), false);
-                drawerLayout.closeDrawers();
                 return true;
             } else if (id == R.id.menu_logout) {
                 logout();
                 replaceFragment(new LoginFragment(), true);
                 return true;
+            } else {
+                handleChatMenuItemClick(item);
             }
             return false;
         });
+        //getChatNamesFromDatabase(navigationView);
+
 
 
 
@@ -174,6 +176,41 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    private void getChatNamesFromDatabase(NavigationView navigationView) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("chatMessages").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Menu menu = navigationView.getMenu();
+                menu.removeGroup(R.id.group_chat_names); // Remove existing chat menu items
+
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    String chatName = document.getString("text_message"); // Get the first text message
+                    if (chatName != null) {
+                        menu.add(R.id.group_chat_names, Menu.NONE, Menu.NONE, chatName);
+                    }
+                }
+            } else {
+                Log.e(TAG, "Error getting chat names: ", task.getException());
+            }
+        });
+    }
+
+    private void handleChatMenuItemClick(MenuItem item) {
+        if (item.getGroupId() == R.id.group_chat_names) {
+            String chatName = item.getTitle().toString();
+            startNewChatWith(chatName);
+        }
+    }
+
+    private void startNewChatWith(String chatName) {
+        Toast.makeText(MainActivity.this, "Starting new chat with: " + chatName, Toast.LENGTH_SHORT).show();
+        ChatFragment chatFragment = ChatFragment.newInstance(chatName);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container, chatFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
 
     private void applyThemeFromPreference() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -226,6 +263,8 @@ public class MainActivity extends AppCompatActivity {
     private void replaceFragment(Fragment fragment, boolean fullScreen) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
+        //close the side nav bar after opening a menu
+        drawerLayout.closeDrawers();
 
         int containerId = fullScreen ? R.id.full_screen_container : R.id.container;
 

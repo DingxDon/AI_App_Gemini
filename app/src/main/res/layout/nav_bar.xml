@@ -31,8 +31,10 @@
             android:layout_marginStart="15dp"
             android:textStyle="bold"
             android:textSize="20sp"
-            android:text="Current Chat Name"
+            android:text="GemBot AI"
             android:textColor="@color/white"
+            android:fontFamily="sans-serif-medium"
+
             app:layout_constraintStart_toEndOf="@+id/side_menu_ib"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
